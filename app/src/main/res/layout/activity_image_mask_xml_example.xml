@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:mask="http://schemas.android.com/apk/res-auto"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content">
+
+	<fr.bigint.imagemask.MaskMapImageView
+		android:id="@+id/mask_mapping_image_view"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:scaleType="fitCenter"
+		android:src="@drawable/droid"
+		mask:mask_showDebugOverlay="true"
+		mask:masks="@array/droid_masks"/>
+
+	<ImageView
+		android:id="@+id/click_overlay_image_view"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:scaleType="fitCenter"/>
+
+</RelativeLayout>
