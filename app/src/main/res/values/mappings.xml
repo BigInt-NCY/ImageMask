@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<integer-array name="droid_masks">
+		<item>@drawable/head</item>
+		<item>@drawable/arms</item>
+		<item>@drawable/body</item>
+		<item>@drawable/legs</item>
+	</integer-array>
+</resources>

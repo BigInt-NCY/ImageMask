@@ -1,0 +1,73 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+    group = 'fr.bigint.imagemask'
+    version = '1.0.0'
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:23.4.0'
+}
+
+group = 'fr.bigint.imagemask'
+version = '1.0.0'
+
+task generateSourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier 'sources'
+}
+
+task generateJavaDocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath()
+            .join(File.pathSeparator))
+}
+
+task generateJavaDocsJar(type: Jar) {
+    from generateJavaDocs.destinationDir
+    classifier 'javadoc'
+}
+generateJavaDocsJar.dependsOn generateJavaDocs
+
+bintray {
+    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+    pkg {
+        repo = 'maven'
+        name = 'fr.bigint.imagemask'
+
+        userOrg = 'bigint'
+        publicDownloadNumbers = true
+        version {
+            name = '1.0.0'
+            desc = 'ImageMask Library for Android'
+            vcsTag = '1.0.0'
+        }
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/BigInt-NCY/ImageMask.git'
+        configurations = ['archives']
+    }
+}
+
+artifacts {
+    archives generateJavaDocsJar
+    archives generateSourcesJar
+}
+
