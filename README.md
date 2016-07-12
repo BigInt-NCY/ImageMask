@@ -1,5 +1,7 @@
 ImageMask
 ==========
+[ ![Bintray download](https://api.bintray.com/packages/bigint/maven/fr.bigint.imagemask/images/download.svg) ](https://bintray.com/bigint/maven/fr.bigint.imagemask/_latestVersion)
+
 Android library to map clickable areas on an `ImageView`.
 Specify your clickable areas using drawables.
 
@@ -21,7 +23,7 @@ In this example each part of Android's droid body would be clickable independent
 Include the dependency in `build.gradle`:
 ```groovy
 dependencies {
-    compile 'fr.bigint.imagemask:imagemask:1.0.0'
+    compile 'fr.bigint.imagemask:imagemask:1.0.1'
 }
 ```
 ## Usage
