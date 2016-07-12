@@ -357,11 +357,15 @@ public class MaskMapImageView extends ImageView {
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
 
-		invalidateDebugOverlay();
+		if (mDebugOverlayEnabled) {
+			invalidateDebugOverlay();
+		}
 	}
 
 	private void invalidateDebugOverlay() {
-		initDebugOverlay();
+		if (mDebugOverlayEnabled) {
+			initDebugOverlay();
+		}
 	}
 
 	private void drawDebugOverlay(Canvas canvas) {
@@ -533,6 +537,19 @@ public class MaskMapImageView extends ImageView {
 				invalidate();
 			}
 		}
+	}
+
+	/**
+	 * Returns true if the debug overlay is enabled,
+	 * false otherwise.
+	 *
+	 * @return true if the debug overlay is enabled,
+	 *         false otherwise.
+	 * @see #setDebugOverlayEnabled(boolean)
+	 * @attr ref fr.bigint.imagemask.R.styleable#MaskMapImageView_mask_showDebugOverlay
+	 */
+	public boolean isDebugOverlayEnabled() {
+		return mDebugOverlayEnabled;
 	}
 
 	private void onDebugOverlayReady(int[] debugOverlay) {
