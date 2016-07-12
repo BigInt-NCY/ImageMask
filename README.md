@@ -23,7 +23,7 @@ In this example each part of Android's droid body would be clickable independent
 Include the dependency in `build.gradle`:
 ```groovy
 dependencies {
-    compile 'fr.bigint.imagemask:imagemask:1.0.1'
+    compile 'fr.bigint.imagemask:imagemask:1.0.2'
 }
 ```
 ## Usage
