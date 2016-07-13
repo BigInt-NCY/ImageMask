@@ -505,6 +505,7 @@ public class MaskMapImageView extends ImageView {
 			}
 			mMaskDefinitions = null;
 		}
+		invalidateDebugOverlay();
 	}
 
 	/**
@@ -521,6 +522,7 @@ public class MaskMapImageView extends ImageView {
 				mask.initAsync(getContext());
 			}
 		}
+		invalidateDebugOverlay();
 	}
 
 	/**
