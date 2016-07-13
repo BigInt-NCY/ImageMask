@@ -329,6 +329,10 @@ public class MaskMapImageView extends ImageView {
 		final float translateY = imageMatrix[Matrix.MTRANS_Y];
 
 		final Drawable drawable = getDrawable();
+		if (drawable == null) {
+			return new Mask.Point(Float.MIN_VALUE, Float.MIN_VALUE);
+		}
+
 		final int drawableWidth = drawable.getIntrinsicWidth();
 		final int drawableHeight = drawable.getIntrinsicHeight();
 
