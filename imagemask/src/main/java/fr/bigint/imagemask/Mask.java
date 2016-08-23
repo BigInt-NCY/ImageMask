@@ -152,9 +152,6 @@ public class Mask {
 
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
-				if ((i * width + j) % 8 == 0) {
-					bitMask[(i * width + j) / 8] = 0;
-				}
 				int xBitmap = (int) (xRatio * (j + 0.5));
 				int yBitmap = (int) (yRatio * (i + 0.5));
 				boolean masked = isPixelMasked(pixels[yBitmap * bitmapWidth + xBitmap], config);
