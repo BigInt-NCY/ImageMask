@@ -107,6 +107,21 @@ public class Mask {
 			mInitBitMaskTask.cancel(true);
 		}
 	}
+	
+	/**
+	 * Equivalent of Bitmap.getPixels() method for devices on Android Lollipop on which Bitmap.getPixels() returns an empty array when bitmapConfig is ALPHA_8
+	 */
+	private void getPixelsFromBitmap (Bitmap bitmap, int[] pixels, int bytes) {
+		ByteBuffer buffer = ByteBuffer.allocate(bytes);
+		bitmap.copyPixelsToBuffer(buffer);
+
+		byte[] array = buffer.array();
+
+		for (int i = 0; i < array.length; i++) {
+			int pixel = array[i];
+			pixels[i] = pixel;
+		}
+	}
 
 	/**
 	 * Initializes the bit mask synchronously.
@@ -145,7 +160,15 @@ public class Mask {
 		int bitmapHeight = bitmap.getHeight();
 		int pixelsSize = bitmapWidth * bitmapHeight;
 		int[] pixels = new int[pixelsSize];
-		bitmap.getPixels(pixels, 0, bitmapWidth, 0, 0, bitmapWidth, bitmapHeight);
+		
+		/**
+		 *	Call custom equivalent of Bitmap.getPixels() if devices runs on Android Lollipop to avoid getting an empty pixels array
+		 */
+		if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && bitmap.getConfig() == Bitmap.Config.ALPHA_8) {
+			getPixelsFromBitmap(bitmap, pixels, pixelsSize);
+		} else {
+			bitmap.getPixels(pixels, 0, bitmapWidth, 0, 0, bitmapWidth, bitmapHeight);
+		}
 
 		float xRatio = ((float) bitmapWidth) / ((float) width);
 		float yRatio = ((float) bitmapHeight) / ((float) height);
