@@ -6,7 +6,10 @@ import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
+
+import java.nio.ByteBuffer;
 
 /**
  * This class creates a binary mask that can be used to map
@@ -107,11 +110,11 @@ public class Mask {
 			mInitBitMaskTask.cancel(true);
 		}
 	}
-	
+
 	/**
 	 * Equivalent of Bitmap.getPixels() method for devices on Android Lollipop on which Bitmap.getPixels() returns an empty array when bitmapConfig is ALPHA_8
 	 */
-	private void getPixelsFromBitmap (Bitmap bitmap, int[] pixels, int bytes) {
+	private void getPixelsFromBitmap(Bitmap bitmap, int[] pixels, int bytes) {
 		ByteBuffer buffer = ByteBuffer.allocate(bytes);
 		bitmap.copyPixelsToBuffer(buffer);
 
@@ -160,11 +163,13 @@ public class Mask {
 		int bitmapHeight = bitmap.getHeight();
 		int pixelsSize = bitmapWidth * bitmapHeight;
 		int[] pixels = new int[pixelsSize];
-		
+
 		/**
 		 *	Call custom equivalent of Bitmap.getPixels() if devices runs on Android Lollipop to avoid getting an empty pixels array
 		 */
-		if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && bitmap.getConfig() == Bitmap.Config.ALPHA_8) {
+		final int current_sdk = Build.VERSION.SDK_INT;
+		if ((current_sdk == Build.VERSION_CODES.LOLLIPOP || current_sdk == Build.VERSION_CODES.LOLLIPOP_MR1)
+				&& bitmap.getConfig() == Bitmap.Config.ALPHA_8) {
 			getPixelsFromBitmap(bitmap, pixels, pixelsSize);
 		} else {
 			bitmap.getPixels(pixels, 0, bitmapWidth, 0, 0, bitmapWidth, bitmapHeight);

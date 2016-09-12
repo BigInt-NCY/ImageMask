@@ -10,7 +10,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 3
-        versionName "1.0.2"
+        versionName "1.0.4"
     }
     buildTypes {
         release {
@@ -22,10 +22,11 @@ android {
 
 dependencies {
     compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:support-v4:23.4.0'
 }
 
 group = 'fr.bigint.imagemask'
-version = '1.0.2'
+version = '1.0.4'
 
 task generateSourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -54,9 +55,9 @@ bintray {
         userOrg = 'bigint'
         publicDownloadNumbers = true
         version {
-            name = '1.0.2'
+            name = '1.0.4'
             desc = 'ImageMask Library for Android'
-            vcsTag = 'v1.0.2'
+            vcsTag = 'v1.0.4'
         }
         licenses = ['Apache-2.0']
         vcsUrl = 'https://github.com/BigInt-NCY/ImageMask.git'
