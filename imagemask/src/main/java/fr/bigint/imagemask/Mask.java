@@ -113,6 +113,10 @@ public class Mask {
 
 	/**
 	 * Equivalent of Bitmap.getPixels() method for devices on Android Lollipop on which Bitmap.getPixels() returns an empty array when bitmapConfig is ALPHA_8
+	 * 
+	 * @param bitmap    bitmap you want to get pixels from
+	 * @param pixels    output array
+	 * @param bytes     bitmap size in bytes
 	 */
 	private void getPixelsFromBitmap(Bitmap bitmap, int[] pixels, int bytes) {
 		ByteBuffer buffer = ByteBuffer.allocate(bytes);
@@ -164,11 +168,8 @@ public class Mask {
 		int pixelsSize = bitmapWidth * bitmapHeight;
 		int[] pixels = new int[pixelsSize];
 
-		/**
-		 *	Call custom equivalent of Bitmap.getPixels() if devices runs on Android Lollipop to avoid getting an empty pixels array
-		 */
-		final int current_sdk = Build.VERSION.SDK_INT;
-		if ((current_sdk == Build.VERSION_CODES.LOLLIPOP || current_sdk == Build.VERSION_CODES.LOLLIPOP_MR1)
+		final int currentSdk = Build.VERSION.SDK_INT;
+		if ((currentSdk == Build.VERSION_CODES.LOLLIPOP || currentSdk == Build.VERSION_CODES.LOLLIPOP_MR1)
 				&& bitmap.getConfig() == Bitmap.Config.ALPHA_8) {
 			getPixelsFromBitmap(bitmap, pixels, pixelsSize);
 		} else {
